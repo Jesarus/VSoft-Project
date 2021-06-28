@@ -15,9 +15,11 @@ mongoose.connection.on('error', (err)=>{
 
 app.use(bodyParser.urlencoded( {extended: false} ));
 app.use(bodyParser.json())
-const userRoute = require('./routes/user'); 
+const tenantRoute = require('./routes/tenant');
+const visitorRoute = require('./routes/visitor');
 
-app.use('/users', userRoute)
+app.use('/tenants', tenantRoute)
+app.use('/visitors', visitorRoute)
 
 app.listen(3000, ()=>{
     console.log('Listening on port 3000.')

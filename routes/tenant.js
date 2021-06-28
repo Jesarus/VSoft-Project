@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Users = require('../model/user')
+const Tenants = require('../model/tenant')
 
 router.get('/', (req, res) => {
-    Users.find({}, (err, data)=>{
+    Tenants.find({}, (err, data)=>{
         if (err) return res.send({error: 'AQUI ' + err});
         return res.send(data);
     });
@@ -11,13 +11,13 @@ router.get('/', (req, res) => {
 
 
 router.post('/', (req, res) => {
-    const {name, phone, email} = req.body;
+    const {image, name, cpf, birthday, phone, adress } = req.body;
 
-    if (!name || !phone || !email ){
+    if (!image || !name || !cpf || !birthday || !phone || !adress){
         return res.send({error: 'Dados insuficientes.'})
     }
 
-    Users.findOne({email}, (err, data) => {
+    Tenants.findOne({cpf}, (err, data) => {
         if (err){
             return res.send({ error: 'Error ao buscar user ' + err});
         }
@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
             return res.send({ error: 'User cadastrado'});
         }
 
-        Users.create(req.body, (err, data) => {
+        Tenants.create(req.body, (err, data) => {
             if (err){
                 return res.send({ error: 'Error ao buscar user '+ err});
             }
